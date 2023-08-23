@@ -9,10 +9,13 @@ public class PlayerAnimations : MonoBehaviour
 
     [SerializeField] private PlayerMovement pMove;
 
+    [SerializeField] private PlayerExplode pExplode;
+
     // Update is called once per frame
     void Update()
     {
         playerWalk();
+        playerExploding();
     }
 
     private void playerWalk()
@@ -25,5 +28,15 @@ public class PlayerAnimations : MonoBehaviour
         {
             anim.SetBool("Movement", false);
         }
+    }
+
+    private void playerExploding()
+    {
+        if (pExplode.timerStarted)
+        {
+            anim.SetBool("IsExploding", true);
+        }
+        
+
     }
 }

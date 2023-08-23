@@ -14,10 +14,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
+    private PlayerExplode pExplode;
+
+    private bool speedBoostStarted = false;
+
 
     private void Awake()
     {
-        
+        pExplode = GetComponent<PlayerExplode>();
     }
 
     private void FixedUpdate()
@@ -29,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
+
+        speedBoost();
 
         Jump();
 
@@ -62,7 +68,17 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
-    }    
+    }
+    
+    void speedBoost()
+    {
+        if (pExplode.timerStarted && !speedBoostStarted)
+        {
+            speed = speed * 1.5f;
+            speedBoostStarted = true;
+        }
+            
+    }
 
 }
 
